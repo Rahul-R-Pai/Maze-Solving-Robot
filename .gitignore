@@ -1,0 +1,24 @@
+# Python build & cache artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+
+# ROS 2 Colcon build directories
+build/
+install/
+log/
+
+# IDE & Editor files
+.idea/
+*.swp
+*.swo
+*~
+
+# OS specific files
+.DS_Store
+Thumbs.db
+
+# Maze bot scripts specific (if not to be committed)
+src/maze_bot/maze_bot/go_to_goal.py
