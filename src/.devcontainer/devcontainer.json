@@ -1,0 +1,58 @@
+{
+  "name": "ROS 2 Humble Maze Solver",
+  "build": {
+    "dockerfile": "../Dockerfile",
+    "context": "..",
+    "args": {
+      "USERNAME": "ros",
+      "USER_UID": "1000",
+      "USER_GID": "1000"
+    }
+  },
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspace/src,type=bind",
+  "workspaceFolder": "/workspace/src",
+  "remoteUser": "ros",
+  "runArgs": [
+    "--name",
+    "ros2_maze_solver",
+    "--net=host",
+    "--ipc=host",
+    "--privileged",
+    "--gpus=all"
+  ],
+  "mounts": [
+    "source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind",
+    "source=/dev/dri,target=/dev/dri,type=bind"
+  ],
+  "containerEnv": {
+    "DISPLAY": ":0",
+    "QT_X11_NO_MITSHM": "1",
+    "NVIDIA_VISIBLE_DEVICES": "all",
+    "NVIDIA_DRIVER_CAPABILITIES": "all",
+    "ROS_DOMAIN_ID": "0"
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-iot.vscode-ros",
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "smilerobotics.urdf",
+        "redhat.vscode-xml",
+        "ms-vscode.cpptools"
+      ],
+      "settings": {
+        "ros.distro": "humble",
+        "python.defaultInterpreterPath": "/usr/bin/python3",
+        "python.autoComplete.extraPaths": [
+          "/opt/ros/humble/lib/python3.10/site-packages",
+          "/opt/ros/humble/local/lib/python3.10/dist-packages"
+        ],
+        "python.analysis.extraPaths": [
+          "/opt/ros/humble/lib/python3.10/site-packages",
+          "/opt/ros/humble/local/lib/python3.10/dist-packages"
+        ]
+      }
+    }
+  }
+}
