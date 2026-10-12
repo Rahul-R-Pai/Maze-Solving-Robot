@@ -13,8 +13,6 @@
   "workspaceFolder": "/workspace/src",
   "remoteUser": "ros",
   "runArgs": [
-    "--name",
-    "ros2_maze_solver",
     "--net=host",
     "--ipc=host",
     "--privileged",
