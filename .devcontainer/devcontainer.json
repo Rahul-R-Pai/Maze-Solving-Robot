@@ -1,7 +1,7 @@
 {
   "name": "ROS 2 Humble Maze Solver",
   "build": {
-    "dockerfile": "../src/Dockerfile",
+    "dockerfile": "../Dockerfile",
     "context": "..",
     "args": {
       "USERNAME": "ros",
@@ -9,8 +9,8 @@
       "USER_GID": "1000"
     }
   },
-  "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
-  "workspaceFolder": "/workspace",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspace/src,type=bind",
+  "workspaceFolder": "/workspace/src",
   "remoteUser": "ros",
   "runArgs": [
     "--name",

@@ -22,25 +22,24 @@ Key capabilities:
 .
 ├── .devcontainer/                  # VS Code Dev Container configuration
 │   └── devcontainer.json
-├── src/
-│   ├── maze_bot/                   # Main ROS 2 package
-│   │   ├── launch/                 # ROS 2 Python launch scripts
-│   │   │   ├── gazebo.launch.py    # Gazebo simulation world & entity spawner
-│   │   │   └── rviz.launch.py      # RViz2 visualization and state publishers
-│   │   ├── meshes/                 # 3D STL collision & visual models
-│   │   │   ├── base_link.stl
-│   │   │   ├── front_caster.stl
-│   │   │   ├── wheel_l.stl
-│   │   │   └── wheel_r.stl
-│   │   ├── urdf/                   # Robot description
-│   │   │   └── maze_bot.urdf       # Links, joints, transmissions & physical parameters
-│   │   ├── maze_bot/               # Python source modules
-│   │   ├── package.xml             # Package metadata and dependencies
-│   │   ├── setup.py                # Package installation and launch/URDF data files
-│   │   └── test/                   # Linters and unit tests (flake8, pep257, copyright)
-│   ├── Dockerfile                  # ROS 2 Humble development environment container
-│   ├── docker-compose.yml          # Container configuration with GPU/GUI pass-through
-│   └── entrypoint.sh               # Container entrypoint and environment sourcing
+├── maze_bot/                       # Main ROS 2 package
+│   ├── launch/                     # ROS 2 Python launch scripts
+│   │   ├── gazebo.launch.py        # Gazebo simulation world & entity spawner
+│   │   └── rviz.launch.py          # RViz2 visualization and state publishers
+│   ├── meshes/                     # 3D STL collision & visual models
+│   │   ├── base_link.stl
+│   │   ├── front_caster.stl
+│   │   ├── wheel_l.stl
+│   │   └── wheel_r.stl
+│   ├── urdf/                       # Robot description
+│   │   └── maze_bot.urdf           # Links, joints, transmissions & physical parameters
+│   ├── maze_bot/                   # Python source modules
+│   ├── package.xml                 # Package metadata and dependencies
+│   ├── setup.py                    # Package installation and launch/URDF data files
+│   └── test/                       # Linters and unit tests (flake8, pep257, copyright)
+├── Dockerfile                      # ROS 2 Humble development environment container
+├── docker-compose.yml              # Container configuration with GPU/GUI pass-through
+├── entrypoint.sh                   # Container entrypoint and environment sourcing
 ├── .gitignore                      # Git ignore rules (build artifacts, logs, caches)
 └── README.md                       # Project documentation
 ```
@@ -71,12 +70,12 @@ xhost +local:docker
 #### Option A: VS Code Dev Containers (Recommended)
 1. Open the repository root folder in VS Code.
 2. When prompted, select **Reopen in Container** (or open command palette `Ctrl+Shift+P` -> `Dev Containers: Reopen in Container`).
-3. The environment will automatically build and configure ROS 2 Humble with all required tools.
+3. The environment mounts your repository to `/workspace/src` inside the container, preserving the standard ROS 2 workspace layout while keeping the host Git repository clean.
 
 #### Option B: Docker Compose CLI
 Start the interactive workspace container:
 ```bash
-docker compose -f src/docker-compose.yml run --rm maze-solver
+docker compose run --rm maze-solver
 ```
 To attach another shell into the running container:
 ```bash

@@ -21,4 +21,5 @@ log/
 Thumbs.db
 
 # Maze bot scripts specific (if not to be committed)
-src/maze_bot/maze_bot/go_to_goal.py
+maze_bot/maze_bot/go_to_goal.py
+go_to_goal.py
