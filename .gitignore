@@ -19,7 +19,3 @@ log/
 # OS specific files
 .DS_Store
 Thumbs.db
-
-# Maze bot scripts specific (if not to be committed)
-maze_bot/maze_bot/go_to_goal.py
-go_to_goal.py

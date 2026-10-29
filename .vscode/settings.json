@@ -19,5 +19,6 @@
       "systemId": "http://download.ros.org/schema/package_format3.xsd",
       "pattern": "**/package.xml"
     }
-  ]
+  ],
+  "python-envs.defaultEnvManager": "ms-python.python:system"
 }

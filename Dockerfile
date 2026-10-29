@@ -74,6 +74,11 @@ RUN mkdir -p /home/$USERNAME/.colcon && \
     printf '"":\n  log-base: /workspace/log\nbuild:\n  build-base: /workspace/build\n  install-base: /workspace/install\n  symlink-install: true\n' > /home/$USERNAME/.colcon/defaults.yaml && \
     chown -R $USERNAME:$USERNAME /home/$USERNAME/.colcon
 
+# Configure Gazebo Classic to prevent hanging on startup when querying offline model database
+RUN mkdir -p /home/$USERNAME/.gazebo/config && \
+    printf '<?xml version="1.0" ?>\n<gazebo_config>\n  <uri></uri>\n</gazebo_config>\n' > /home/$USERNAME/.gazebo/config/default.xml && \
+    chown -R $USERNAME:$USERNAME /home/$USERNAME/.gazebo
+
 # Setup environment in user's bashrc
 USER $USERNAME
 WORKDIR /workspace/src
@@ -81,6 +86,8 @@ ENV DISPLAY=:0
 
 # Source ROS2 and any local workspace overlay in bashrc automatically
 RUN echo 'export DISPLAY="${DISPLAY:-:0}"' >> ~/.bashrc \
+    && echo 'export __NV_PRIME_RENDER_OFFLOAD=1' >> ~/.bashrc \
+    && echo 'export __GLX_VENDOR_LIBRARY_NAME=nvidia' >> ~/.bashrc \
     && echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc \
     && echo 'if [ -f /workspace/install/setup.bash ]; then source /workspace/install/setup.bash; fi' >> ~/.bashrc \
     && echo 'if [ -f /workspace/*/install/setup.bash ]; then for f in /workspace/*/install/setup.bash; do source "$f"; break; done; fi' >> ~/.bashrc
