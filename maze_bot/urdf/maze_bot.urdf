@@ -9,7 +9,6 @@
 -   Divide by scale*2 (scale -sqaurred)
 -   multiply with  mass you wantto give
 Thats why we use xacros
-
  -->
 
     <link name="base_footprint"/>
@@ -32,48 +31,42 @@ Thats why we use xacros
       <collision>
         <geometry>
           <mesh filename="package://maze_bot/meshes/base_link.stl"/>
-      </geometry>
-        <contact_coefficients mu="1" mu2="1" kp="1e+13.0" kd="1.0"/>
+        </geometry>
       </collision>
-
-
     </link>
-   <joint name="base_joint" type="fixed">
+
+    <joint name="base_joint" type="fixed">
       <parent link="base_footprint"/>
       <child link="base"/>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="0 0 0" xyz="0 0 0.03"/>
     </joint>
 
-
- <link name="wheel_right">
-    <inertial>
-      <mass value="0.75"/>
-      <inertia ixx="0.001444223" iyy="0.00280875" izz="0.001444223" ixy="0.0" ixz="0.0" iyz="0.0"/>
-      <origin/>
-    </inertial>
+    <link name="wheel_right">
+      <inertial>
+        <mass value="0.75"/>
+        <inertia ixx="0.001444223" iyy="0.00280875" izz="0.001444223" ixy="0.0" ixz="0.0" iyz="0.0"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+      </inertial>
   
       <visual>
-        
         <geometry>
             <mesh filename="package://maze_bot/meshes/wheel_r.stl"/>
         </geometry>
-
         <material name="white">
           <color rgba="1 1 1 1"/>
         </material>
       </visual>
   
       <collision>
+        <origin xyz="0 0 0" rpy="1.57079632679 0 0"/>
         <geometry>
-            <mesh filename="package://maze_bot/meshes/wheel_r.stl"/>
+          <cylinder length="0.032" radius="0.07"/>
         </geometry>
-        <contact_coefficients mu="0" kp="1000.0" kd="1.0"/>
       </collision>
-
     </link>
   
     <joint name="wheel_right_joint" type="continuous">
-      <origin xyz="0.09 0.085 0.04  " rpy="0 0.0 0.0"/>
+      <origin xyz="0.09 0.085 0.04" rpy="0 0.0 0.0"/>
       <parent link="base"/>
       <child link="wheel_right"/>
       <axis xyz="0.0 -1.0 0"/>
@@ -83,25 +76,23 @@ Thats why we use xacros
       <inertial>
         <mass value="0.75"/>
         <inertia ixx="0.001444223" iyy="0.00280875" izz="0.001444223" ixy="0.0" ixz="0.0" iyz="0.0" />
-        <origin/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
       </inertial>
   
       <visual>
-        
         <geometry>
             <mesh filename="package://maze_bot/meshes/wheel_l.stl"/>
         </geometry>
-        
         <material name="white">
           <color rgba="1 1 1 1"/>
         </material>
       </visual>
   
       <collision>
+        <origin xyz="0 0 0" rpy="1.57079632679 0 0"/>
         <geometry>
-            <mesh filename="package://maze_bot/meshes/wheel_l.stl"/>
+          <cylinder length="0.032" radius="0.07"/>
         </geometry>
-        <contact_coefficients mu="0" kp="1000.0" kd="1.0"/>
       </collision>
     </link>
   
@@ -110,128 +101,132 @@ Thats why we use xacros
       <parent link="base"/>
       <child link="wheel_left"/>
       <axis xyz="0.0 1 0"/>
-  
     </joint>
   
-  
     <link name="caster">
-
       <inertial>
         <mass value="0.75"/>
         <inertia ixx="0.0001295" iyy="0.0001295" izz="0.000199322" ixy="0.0" ixz="0.0" iyz="0.0" />
-        <origin/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
       </inertial>
   
       <visual>
         <geometry>
           <mesh filename="package://maze_bot/meshes/front_caster.stl"/>
-      </geometry>
-        <material name="black" />
+        </geometry>
       </visual>
   
       <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://maze_bot/meshes/front_caster.stl"/>
-      </geometry>
-        <contact_coefficients mu="0" kp="1000.0" kd="1.0"/>
+          <sphere radius="0.0138"/>
+        </geometry>
       </collision>
     </link>
   
     <joint name="caster_joint" type="continuous">
-      <origin xyz="-0.14 -0.007 -0.03" rpy="0.0 0.0 0.0"/>
+      <origin xyz="-0.14 -0.007 -0.0162" rpy="0.0 0.0 0.0"/>
       <axis xyz="0 0 1" />
       <parent link="base"/>
       <child link="caster"/>
     </joint>  
 
+    <link name="camera_link">
+      <inertial>
+        <mass value="0.05"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.0001"/>
+      </inertial>
+    </link>
 
-  <link name="camera_link">
-  </link>
-
-  <joint name="camera_joint" type="fixed">
-    <origin xyz="-0.16 0.0 0.08" rpy="0 0.0 3.14"/>
-    <parent link="base"/>
-    <child link="camera_link"/>
-    <axis xyz="0.0 0.0 1.0"/>
-  
-</joint>
-
+    <joint name="camera_joint" type="fixed">
+      <origin xyz="-0.16 0.0 0.08" rpy="0 0.0 3.14"/>
+      <parent link="base"/>
+      <child link="camera_link"/>
+      <axis xyz="0.0 0.0 1.0"/>
+    </joint>
 
     <gazebo reference="camera_link">
-        <sensor type="camera" name="Botcamera">
-          <update_rate>30.0</update_rate>
-          <camera name="head">
-            <horizontal_fov>1.3962634</horizontal_fov>
-            <image>
-              <width>800</width>
-              <height>800</height>
-              <format>R8G8B8</format>
-            </image>
-            <clip>
-              <near>0.02</near>
-              <far>300</far>
-            </clip>
-            <noise>
-              <type>gaussian</type>
-              <mean>0.0</mean>
-              <stddev>0.007</stddev>
-            </noise>
-          </camera>
-          <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
-            <alwaysOn>true</alwaysOn>
-            <updateRate>0.0</updateRate>
-            <cameraName>/Botcamera</cameraName>
-            <imageTopicName>image_raw</imageTopicName>
-            <cameraInfoTopicName>camera_info</cameraInfoTopicName>
-            <frameName>camera_link</frameName>
-            <hackBaseline>0.07</hackBaseline>
-          </plugin>
-        </sensor>
-        <material>Gazebo/Blue</material>
-      </gazebo>
-
-
-
-
-  
+      <sensor type="camera" name="Botcamera">
+        <update_rate>30.0</update_rate>
+        <camera name="head">
+          <horizontal_fov>1.3962634</horizontal_fov>
+          <image>
+            <width>800</width>
+            <height>800</height>
+            <format>R8G8B8</format>
+          </image>
+          <clip>
+            <near>0.02</near>
+            <far>300</far>
+          </clip>
+          <noise>
+            <type>gaussian</type>
+            <mean>0.0</mean>
+            <stddev>0.007</stddev>
+          </noise>
+        </camera>
+        <plugin name="bot_camera_controller" filename="libgazebo_ros_camera.so">
+          <ros>
+            <remapping>image_raw:=/Botcamera/image_raw</remapping>
+            <remapping>camera_info:=/Botcamera/camera_info</remapping>
+          </ros>
+          <frame_name>camera_link</frame_name>
+          <hack_baseline>0.07</hack_baseline>
+        </plugin>
+      </sensor>
+      <material>Gazebo/Blue</material>
+    </gazebo>
 
     <gazebo>
       <plugin filename="libgazebo_ros_diff_drive.so" name="gazebo_base_controller">
-        <odometry_frame>odom</odometry_frame>
-        <commandTopic>cmd_vel</commandTopic>
-        <publish_odom>true</publish_odom>
-        <publish_odom_tf>true</publish_odom_tf>
-        <update_rate>15.0</update_rate>
+        <ros>
+          <remapping>cmd_vel:=cmd_vel</remapping>
+          <remapping>odom:=odom</remapping>
+        </ros>
+        <update_rate>30.0</update_rate>
         <left_joint>wheel_left_joint</left_joint>
         <right_joint>wheel_right_joint</right_joint>
-        <wheel_separation>0.8</wheel_separation>
-        <wheel_diameter>0.3</wheel_diameter>
-        <max_wheel_acceleration>0.7</max_wheel_acceleration>
-        <robotBaseFrame>base</robotBaseFrame>
-  
+        <wheel_separation>0.185</wheel_separation>
+        <wheel_diameter>0.14</wheel_diameter>
+        <max_wheel_torque>20</max_wheel_torque>
+        <max_wheel_acceleration>1.0</max_wheel_acceleration>
+        <command_topic>cmd_vel</command_topic>
+        <publish_odom>true</publish_odom>
+        <publish_odom_tf>true</publish_odom_tf>
+        <publish_wheel_tf>true</publish_wheel_tf>
+        <odometry_topic>odom</odometry_topic>
+        <odometry_frame>odom</odometry_frame>
+        <robot_base_frame>base_footprint</robot_base_frame>
       </plugin>
     </gazebo>
 
-
-  <gazebo reference="base">
+    <gazebo reference="base">
       <material>Gazebo/Black</material>
     </gazebo>
+
     <gazebo reference="caster">
+      <mu1 value="0.001"/>
+      <mu2 value="0.001"/>
+      <kp value="1000000.0"/>
+      <kd value="1.0"/>
       <material>Gazebo/White</material>
     </gazebo>
     
     <gazebo reference="wheel_right">
+      <mu1 value="1.0"/>
+      <mu2 value="1.0"/>
+      <kp value="1000000.0"/>
+      <kd value="100.0"/>
       <material>Gazebo/Orange</material>
     </gazebo>
+
     <gazebo reference="wheel_left">
+      <mu1 value="1.0"/>
+      <mu2 value="1.0"/>
+      <kp value="1000000.0"/>
+      <kd value="100.0"/>
       <material>Gazebo/Orange</material>
-    </gazebo>  
+    </gazebo>
 
-
-
-
-
-
-
-  </robot>
-  
+</robot>
