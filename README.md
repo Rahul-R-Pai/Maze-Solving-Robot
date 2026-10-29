@@ -6,11 +6,11 @@ A modular, Dockerized ROS 2 Humble mobile robot simulation and navigation enviro
 
 ## 📌 Overview
 
-**Maze Solving Robot** is an autonomous differential drive robot built and simulated using **ROS 2 Humble**, **Gazebo Classic**, and **RViz2**. The project provides a containerized development workflow with hardware acceleration (NVIDIA GPU / DRI OpenGL support) and full GUI integration, allowing easy reproduction without dependency conflicts.
+**Maze Solving Robot** is an autonomous differential drive robot built and simulated using **ROS 2 Humble**, **Gazebo Sim (Ignition)**, and **RViz2**. The project provides a containerized development workflow with hardware acceleration (NVIDIA GPU / DRI OpenGL support) and full GUI integration, allowing easy reproduction without dependency conflicts.
 
 Key capabilities:
 - Custom differential drive robot URDF definition with realistic inertial properties and 3D mesh components (wheels, caster, base chassis).
-- Headless or GUI-based simulation in Gazebo Classic.
+- Headless or GUI-based simulation in Gazebo Sim.
 - Robot state visualization and joint inspection in RViz2.
 - Containerized development using Docker, Dev Containers, and Docker Compose with colcon workspace configurations.
 
@@ -112,7 +112,7 @@ ros2 launch maze_bot gazebo.launch.py
 ## 🛠️ Tech Stack & Dependencies
 
 - **ROS Distribution**: ROS 2 Humble Hawksbill
-- **Simulator**: Gazebo Classic 11 (`gazebo_ros_pkgs`)
+- **Simulator**: Gazebo Sim / Ignition (`ros_gz_sim`)
 - **Visualization**: RViz2, `robot_state_publisher`, `joint_state_publisher_gui`
 - **Robotics & Math**: `rclpy`, `geometry_msgs`, `sensor_msgs`, `transforms3d`, `scipy`, `numpy`
 - **Vision**: OpenCV (`cv_bridge`, `opencv-contrib-python`)
