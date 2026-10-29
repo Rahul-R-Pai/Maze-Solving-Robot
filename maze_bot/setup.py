@@ -13,7 +13,9 @@ setup(
         ('share/' + package_name, ['package.xml']),
         (os.path.join('share', package_name, 'urdf'), glob('urdf/*')),
         (os.path.join('share', package_name, 'meshes'), glob('meshes/*')),
+        (os.path.join('share', package_name, 'models'), glob('models/*')),
         (os.path.join('share', package_name, 'launch'), glob('launch/*')),
+        (os.path.join('share', package_name, 'worlds'), glob('worlds/*')),
     ],
     install_requires=['setuptools'],
     zip_safe=True,
@@ -28,6 +30,9 @@ setup(
     },
     entry_points={
         'console_scripts': [
+            'go_to_goal = maze_bot.go_to_goal:main',
+            'video_recorder = maze_bot.video_saver:main',
+            'maze_solver = maze_bot.maze_solver:main',
         ],
     },
 )
